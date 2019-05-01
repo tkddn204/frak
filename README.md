@@ -3,7 +3,7 @@
 Frak is a deployment tool that uses `rsync` to upload file changes to remote servers. With this tool you can rapidly deploy code without having to commit it into your version control repository, which, although controversial to some, is preferred when working in a fast-paced environment.
 
 ```console
-$ 
+$ frak-auto-push
 ```
 
 # Installation

@@ -2,12 +2,18 @@
 
 Frak is a deployment tool that uses `rsync` to upload file changes to remote servers. With this tool you can rapidly deploy code without having to commit it into your version control repository, which, although controversial to some, is preferred when working in a fast-paced environment.
 
+```console
+$ 
+```
+
 # Installation
 
 Simply copy the `bin/frak` file to a location in your `$PATH`. Or, you can symlink it as well.
 
-    $ git clone https://github.com/fstrube/frak.git
-    $ ln -s `pwd`/frak/bin/frak ~/bin/frak
+    $ git clone https://github.com/tkddn204/frak.git
+    $ sudo ln -s `pwd`/frak/bin/frak /usr/local/bin/frak
+    $ brew install expect
+    $ sudo ln -s `pwd`/frak/auto_password_push.exp /usr/local/bin/frak-auto-push
 
 # Dependencies
 

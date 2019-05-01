@@ -2,7 +2,8 @@
 #
 # @version 1.3.5
 # @author Franklin P. Strube <franklin.strube@gmail.com>
-# @copyright 2014 Franklin P. Strube
+# @modifier SsangWoo <tkddn204@gmail.com>
+# @copyright 2014 Franklin P. Strube, SsangWoo
 #
 #: Usage: frak <command> [option=value option=value ...]
 #:
@@ -281,6 +282,14 @@ def backups_purge
 end
 
 ##
+# Create a git commit logs
+def create_commit_revision
+  git_log = `git log HEAD --oneline --no-walk --pretty`
+  p git_log
+  system %Q:echo "Deploy to #{$options[:remote_path]} - #{$backup_path}\n#{git_log}\n========================================" >> ./.deploy_log:
+end
+
+##
 # Create a patch of the latest backup
 
 def backups_patch
@@ -294,6 +303,7 @@ def backups_patch
     "xargs -I {} diff -u -x #{hash}.patch --label a/{} --label b/{} ./{} #{$options[:remote_path]}/{}"
   say "#{ANSI::YELLOW}Generating patch file #{hash}.patch.#{ANSI::CLEAR}"
   system %Q:ssh #{$options[:server]} 'cd #{$options[:remote_path]}/#{$backup_path} 2>/dev/null || exit; #{patch_command} >> #{$options[:remote_path]}/#{$backup_path}/#{hash}.patch':
+  create_commit_revision
   $diff_contents = `ssh #{$options[:server]} 'cat #{$options[:remote_path]}/#{$backup_path}/#{hash}.patch'`
   $diff_name = ($options[:label].nil? ? hash : $options[:label]) + "/#{$backup_path}/#{hash}.patch"
 end
